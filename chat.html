@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      .chat-container {
+        max-width: 400px;
+        margin: 20px auto;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .chat-box {
+        background-color: #fff;
+        padding: 20px;
+        height: 300px;
+        overflow-y: auto;
+      }
+
+      .user-message {
+        text-align: right;
+        color: #333;
+      }
+
+      .bot-message {
+        text-align: left;
+        color: #333;
+      }
+
+      .message {
+        margin-bottom: 10px;
+      }
+
+      .input-box {
+        border-top: solid 1px rgba(0, 0, 0, 0.208);
+        background-color: #fff;
+        padding: 10px;
+        display: flex;
+      }
+
+      .input-box input[type="text"] {
+        flex: 1;
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+      }
+
+      .input-box input[type="submit"] {
+        background-color: #6933fc;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-box" id="chat-box">
+        <img src="img/perfil.png" width="30px" alt="" />
+        <div class="bot-message message">
+          <h1>Olá! Como posso ajudá-lo?</h1>
+        </div>
+        <p>Por favor, informe sua cidade para encontrar candidatos:</p>
+      </div>
+      <div class="input-box">
+        <input type="text" id="user-input" placeholder="Digite sua cidade..." />
+        <input type="submit" value="Enviar" onclick="sendMessage()" />
+      </div>
+    </div>
+    <footer>
+      <div class="footer">
+        <a href="locais.html">
+          <img src="img/local.svg" width="40px" alt="" />
+        </a>
+        <a href="index.html">
+          <img src="img/home.svg" width="40px" alt="" />
+        </a>
+        <a href="chat.html">
+          <img src="img/chat.svg" width="40px" aalt="" />
+        </a>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+      function sendMessage() {
+        var userInput = document.getElementById("user-input").value;
+        var chatBox = document.getElementById("chat-box");
+
+        var userMessage =
+          '<div class="user-message message">' + userInput + "</div>";
+        chatBox.innerHTML += userMessage;
+
+        // Limpa o campo de entrada
+        document.getElementById("user-input").value = "";
+
+        // Faz a requisição POST com Axios
+        axios
+          .post("sua-url-aqui", {
+            message: userInput,
+          })
+
+          .then(function (response) {
+            // Adiciona a mensagem do bot ao chat
+            var botMessage =
+              '<img src="img/perfil.png" width="30px" alt="">' +
+              '<div class="bot-message message">' +
+              response.data.message +
+              "</div>";
+            chatBox.innerHTML += botMessage;
+            // Role o chat para o final
+            chatBox.scrollTop = chatBox.scrollHeight;
+          })
+          .catch(function (error) {
+            console.error("Erro ao enviar a mensagem:", error);
+          });
+      }
+    </script>
+  </body>
+</html>

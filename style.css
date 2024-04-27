@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.img {
+    background-color: #B8B8B8;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 7px;
+}
+
+header {
+    display: flex;
+    margin: 20px;
+    justify-content: space-between;
+}
+
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select:focus,
+textarea {
+    font-size: 16px;
+}
+
+.search {
+    border-radius: 30px;
+    display: flex;
+}
+
+.search input {
+    background-color: rgba(255, 255, 255, 0.212);
+    border-color: rgba(0, 0, 216, 0.212);
+        height: 37px;
+    width: 260px;
+    border-color: rgba(0, 0, 216, 0.212);
+    outline: none;
+    border-right: 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding-left: 20px;
+    outline: none;
+}
+
+.search button {
+    width: 20%;
+        height: 40px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-left: 0;
+        border-color: rgba(0, 0, 216, 0.212)
+}
+
+.search img {
+    width: 20px;
+}
+
+.card {
+    width: 80%;
+    margin: 20px;
+    background-color: #5271FF;
+    height: 120px;
+    padding: 20px;
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+img {
+    border-radius: 20px;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+    margin-bottom: 20px;
+}
+.footer {
+    box-shadow: 1px 1px 40px rgba(0, 0, 0, 0.322);
+    background-color: #5271FF;
+    border-radius: 20px;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width:80%;
+}
