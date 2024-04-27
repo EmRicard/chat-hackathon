@@ -65,19 +65,31 @@
         border-radius: 5px;
         cursor: pointer;
       }
+
+      .bot-message.message {
+        background:#6a85ff; top:20px; left:120px; width:70%;
+        border-radius: 20px;
+        padding: 20px;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .get {
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
     <div class="chat-container">
       <div class="chat-box" id="chat-box">
         <img src="img/perfil.png" width="30px" alt="" />
-        <div class="bot-message message">
+        <div class="bot-message ">
           <h1>Olá! Como posso ajudá-lo?</h1>
         </div>
-        <p>Por favor, informe sua cidade para encontrar candidatos:</p>
+        <p>Deseja Listar candidatos:</p>
       </div>
       <div class="input-box">
-        <input type="text" id="user-input" placeholder="Digite sua cidade..." />
+        <input type="text" id="user-input" placeholder="..." />
         <input type="submit" value="Enviar" onclick="sendMessage()" />
       </div>
     </div>
@@ -97,38 +109,52 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-      function sendMessage() {
-        var userInput = document.getElementById("user-input").value;
-        var chatBox = document.getElementById("chat-box");
+    async function sendMessage() {
+  var userInput = document.getElementById("user-input").value;
+  var chatBox = document.getElementById("chat-box");
 
-        var userMessage =
-          '<div class="user-message message">' + userInput + "</div>";
-        chatBox.innerHTML += userMessage;
+  var userMessage =
+    '<div class="user-message message">' + userInput + "</div>";
+  chatBox.innerHTML += userMessage;
 
-        // Limpa o campo de entrada
-        document.getElementById("user-input").value = "";
+  // Limpa o campo de entrada
+  document.getElementById("user-input").value = "";
 
-        // Faz a requisição POST com Axios
-        axios
-          .post("sua-url-aqui", {
-            message: userInput,
-          })
+  // Verifica se o usuário respondeu com o número 1
+  if (userInput.trim() === "1") {
+    try {
+      // Faz a requisição POST com Axios
+      const response = await axios.post("http://localhost:3000/candidato", {
+        pageSize: 10,
+        pageNumber: 1
+      });
 
-          .then(function (response) {
-            // Adiciona a mensagem do bot ao chat
-            var botMessage =
-              '<img src="img/perfil.png" width="30px" alt="">' +
-              '<div class="bot-message message">' +
-              response.data.message +
-              "</div>";
-            chatBox.innerHTML += botMessage;
-            // Role o chat para o final
-            chatBox.scrollTop = chatBox.scrollHeight;
-          })
-          .catch(function (error) {
-            console.error("Erro ao enviar a mensagem:", error);
-          });
-      }
+      // Itera sobre cada candidato retornado
+      response.data.forEach((candidate) => {
+        // Cria a mensagem do candidato
+        var candidateMessage =
+          '<div class="bot-message message">' +
+          '<p class="get">Nome:</p> ' + candidate.name + '<br>' +
+          '<p class="get">Número: </p> ' + candidate.number + '<br>' +
+          '<p class="get">Partido: </p>' + candidate.party + '<br>' +
+          '<p class="get">Cargo: </p>' + candidate.position + '<br>' +
+          '<p class="get">Cidade: </p>' + candidate.city +
+          '</div>';
+
+        // Adiciona a mensagem do candidato ao chat
+        chatBox.innerHTML += candidateMessage;
+      });
+
+      // Role o chat para o final
+      chatBox.scrollTop = chatBox.scrollHeight;
+    } catch (error) {
+      console.error("Erro ao enviar a mensagem:", error);
+    }
+  }
+}
+
     </script>
+    
+    
   </body>
 </html>

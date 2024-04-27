@@ -1,0 +1,16 @@
+{
+  "name": "meu-projeto",
+  "version": "1.0.0",
+  "description": "Um projeto para acessar e manipular dados de um arquivo CSV",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Seu Nome",
+  "license": "MIT",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
